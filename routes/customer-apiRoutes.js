@@ -3,7 +3,9 @@ var db = require("../models");
 module.exports = function (app) {
   // Get all customers
   app.get("/api/customers", function (req, res) {
-    db.Customer.findAll({}).then(function (dbCustomers) {
+    db.Customer.findAll({
+      include: [db.Car]
+    }).then(function (dbCustomers) {
       res.json(dbCustomers);
     });
   });
