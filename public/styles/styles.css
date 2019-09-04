@@ -1,0 +1,39 @@
+.list-group-item {
+  line-height: 2.5;
+}
+
+.jumbotron {
+background-color: rgb(17, 17, 85);
+color: white;
+}
+
+#jumboTitle {
+  font-family: 'Staatliches', cursive;
+  margin-top: -50px;
+  margin-bottom: -10px;
+}
+
+#jumboSubtitle {
+  font-family: 'Catamaran', sans-serif;
+  margin-bottom: -30px;
+}
+
+#addCar, #addCar:hover, #addCustomer, #addCustomer:hover {
+  margin-bottom: 20px;
+  background-color: rgb(17, 17, 85);
+  color: white;
+}
+
+#submitCustomer {
+  background-color: rgb(17, 17, 85);
+  color: white;
+}
+
+body {
+  font-family: 'Catamaran', sans-serif;
+}
+
+#soldButton {
+  padding: 5px 20px 5px 20px;
+  margin-right: -30px
+}
