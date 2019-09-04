@@ -53,12 +53,12 @@ $('#soldModal').on('submit', function (event) {
   var carID = $("#submitSold").attr("carID");
   var price = $carPrice.val();
   var dateSold = $carDate.val();
-  var customerId = customerSelect.val()
+  var customerId = customerSelect.val();
   var car = {
     id: carID,
     price: price,
     datesold: dateSold,
-    customerId: customerId
+    CustomerId: customerId
   };
   console.log("car " + JSON.stringify(car))
 alert("updating sold")
@@ -213,6 +213,30 @@ $("#searchInput").on("keyup", function () {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 });
+
+// displays modal for adding customer
+$("#addCustomer").on("click", function () {
+  $("#submit-customer").attr("carID", ""); // <-- carID
+  //reset
+  $("#customer-name").val("");
+  $("#input-email").val("");
+  $("#input-phone").val("");
+  $("#input-price").val("");
+  $("#customer-date").val("");
+  $("#customerModal").show();
+});
+
+$("#modalCloseCustomer").on("click", function () {
+  $("#customerModal").hide();
+});
+
+$("#searchInput").on("keyup", function () {
+  var value = $(this).val().toLowerCase();
+  $("#car-table tr").filter(function () {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
+
 
 
 // This section will populate the list of customers

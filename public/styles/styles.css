@@ -1,39 +1,68 @@
-.list-group-item {
-  line-height: 2.5;
-}
-
+/* Jumbotron */
 .jumbotron {
-background-color: rgb(17, 17, 85);
-color: white;
-}
-
-#jumboTitle {
-  font-family: 'Staatliches', cursive;
-  margin-top: -50px;
-  margin-bottom: -10px;
-}
-
-#jumboSubtitle {
-  font-family: 'Catamaran', sans-serif;
-  margin-bottom: -30px;
-}
-
-#addCar, #addCar:hover, #addCustomer, #addCustomer:hover {
-  margin-bottom: 20px;
   background-color: rgb(17, 17, 85);
   color: white;
-}
-
-#submitCustomer {
-  background-color: rgb(17, 17, 85);
-  color: white;
-}
-
-body {
-  font-family: 'Catamaran', sans-serif;
-}
-
-#soldButton {
-  padding: 5px 20px 5px 20px;
-  margin-right: -30px
-}
+  }
+  #jumboTitle {
+    font-family: "Staatliches", cursive;
+    margin-top: -50px;
+    margin-bottom: -10px;
+  }
+  #jumboSubtitle {
+    font-family: "Catamaran", sans-serif;
+    margin-bottom: -30px;
+  }
+  
+  /* Add Data Buttons */
+  #buttonRow {
+    margin-bottom: 10px;
+  }
+  #addCar, #addCar:hover, #addCustomer, #addCustomer:hover {
+    margin-bottom: 20px;
+    background-color: #34C6D1;
+    color: white;
+  }
+  #submitCustomer {
+    background-color: rgb(17, 17, 85);
+    color: white;
+  }
+  
+  /* Body */
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  .card-header {
+    font-family: "Staatliches", cursive;
+    font-size: 20pt;
+  }
+  
+  /* Database Search Card */
+  #searchBody {
+    display: inline-flex;
+  }
+  .fa-search {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 16pt;
+  }
+  .card-header {
+    background-color: rgb(17, 17, 85);
+    color: white;
+  }
+  
+  /* Table */
+  td {
+    font-family:"Lato", sans-serif;
+  }
+  .deleteButton {
+    padding: 5px 10px 5px 10px;
+    background-color: #E8141B;
+  }
+  .soldButton {
+    padding: 5px 12px 5px 12px;
+    background-color: #32A13A;
+  }
+  .editButton {
+    background-color: #FFE324;
+    border-color: #FFE324;
+  }

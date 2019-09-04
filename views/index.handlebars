@@ -8,7 +8,7 @@
     </div>
 
     <!-- Button Row -->
-    <div class="row">
+    <div class="row" id="buttonRow">
       <div class="col-md-3">
       </div>
       <div class="col-md-4">
@@ -18,14 +18,21 @@
         <button type="button" class="btn btn-lg" id="addCustomer">Add Customer</button>
       </div>
     </div>
-    <p>Type something in the input field to search the table:</p>
-    <input class="form-control" id="searchInput" type="text" placeholder="Search..">
+
+    <!-- Filter Search -->
+    <div class="card">
+      <div class="card-header">Database Search</div>
+      <div class="card-body" id="searchBody">
+        <i class="fas fa-search"></i><input class="form-control" id="searchInput" type="text" placeholder="Search...">
+      </div>
+    </div>
     <br>
+
     <!-- Table -->
     <div class="row">
       <div class="col-md-12">
         <div class="card mb-4">
-          <div class="card-header">Vehicles</div>
+          <div class="card-header">Vehicle Database</div>
           <div class="card-body">
             <table class="table table-sm table-hover" id='car-table'>
               <thead>
@@ -35,6 +42,7 @@
                   <th scope="col">Model</th>
                   <th scope="col">Color</th>
                   <th scope="col">Mileage</th>
+                  <th scope="col">Picture</th>
                   <th scope="col">Sold</th>
                   <th scope="col">Delete</th>
                   <th scope="col">Edit</th>
@@ -48,6 +56,7 @@
                   <td scope="col" id="model{{this.id}}">{{this.model}}</td>
                   <td scope="col" id="color{{this.id}}">{{this.color}}</td>
                   <td scope="col" id="mileage{{this.id}}">{{this.mileage}}</td>
+                  <td scope="col" id="image{{this.id}}"><img src="{{this.carimage}}" width="50px" height="50px" /></td>
                   <td scope="col"><span class="icon is-sm"><button class="btn btn-sm btn-success soldButton"
                         data-id="{{this.id}}"><i class="fas fa-dollar-sign"></i></button></span></td>
                   <td scope="col"><span class="icon is-sm"><button class="btn btn-sm btn-danger deleteButton"
@@ -70,31 +79,18 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Please enter buyer information below</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group">
               <!-- Dropdown button -->
-              <!--div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Select a previous customer
-                </button-->
               <div class="form-group">
                 <label for="category">Select Customer:</label>
                 <select class="custom-select" id="car-customer">
                 </select>
               </div>
-              <!--div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div-->
-
               <hr>
+
               <br>
               <div class="row">
                 <div class="col">
@@ -126,9 +122,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Please enter vehicle information below</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
 
@@ -151,17 +144,16 @@
                 <input type="text" class="form-control" id="car-model" required>
               </div>
 
-              <div class="row">
-                <div class="col">
-                  <label>Color</label>
-                  <input type="text" class="form-control" id="car-color" required>
-                </div>
-
-                <div class="col">
-                  <label>Mileage</label>
-                  <input type="number" class="form-control" id="car-mileage" required min="0" max="444444">
-                </div>
+              <div class="col">
+                <label>Color</label>
+                <input type="text" class="form-control" id="car-color" required>
               </div>
+
+              <div class="col">
+                <label>Mileage</label>
+                <input type="number" class="form-control" id="car-mileage" required min="0" max="444444">
+              </div>
+
               <br>
             </div>
             <div class="modal-footer">
@@ -173,6 +165,57 @@
     </div>
   </div>
 </div>
+</div>
+
+<!-- Add Customer Modal -->
+<div class="modal" id="customerModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add a New Customer</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label>Full Name</label>
+                <input type="text" class="form-control" id="customer-name" required placeholder="John Doe">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <label>Email</label>
+                <input type="email" class="form-control" id="input-email" required placeholder="john.doe@email.com">
+              </div>
+
+              <div class="col">
+                <label>Number</label>
+                <input type="number" class="form-control" id="input-phone" required placeholder="555-555-5555">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <label>Price</label>
+                <input type="number" class="form-control" id="input-price" required placeholder="$9,999">
+              </div>
+
+              <div class="col">
+                <label>Date</label>
+                <input type="date" class="form-control" id="customer-date" required placeholder="mm/dd/yyyy">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseCustomer">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-customer">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

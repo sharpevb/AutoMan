@@ -1,3 +1,5 @@
+use car;
+
 insert into cars (year, make, model, mileage, color, createdat,updatedat)
 values (2001, "Toyota","Camry",125000,"Beige", sysdate(),sysdate());
 
