@@ -24,6 +24,9 @@ var API = {
       data: JSON.stringify(car)
     });
   },
+  //saveCustomer: function (customer) {
+
+  //}
   getCars: function () {
     return $.ajax({
       url: "api/cars",
@@ -207,6 +210,7 @@ $("#modalCloseCar").on("click", function () {
   $("#carModal").hide();
 });
 
+// This is the same search function listed already //
 $("#searchInput").on("keyup", function () {
   var value = $(this).val().toLowerCase();
   $("#car-table tr").filter(function () {
@@ -214,9 +218,9 @@ $("#searchInput").on("keyup", function () {
   });
 });
 
-// displays modal for adding customer
+// Displays modal for adding customer
 $("#addCustomer").on("click", function () {
-  $("#submit-customer").attr("carID", ""); // <-- carID
+  $("#submit-customer").attr("customerId", ""); // <-- carID
   //reset
   $("#customer-name").val("");
   $("#input-email").val("");
@@ -225,11 +229,17 @@ $("#addCustomer").on("click", function () {
   $("#customer-date").val("");
   $("#customerModal").show();
 });
-
+// Closes modal on Cancel button click
 $("#modalCloseCustomer").on("click", function () {
   $("#customerModal").hide();
 });
 
+// 
+$("#customerModal").on("submit", function (event) {
+  var customerID = $("#submit-customer").attr("customerId")
+})
+
+// Search bar to scroll through vehicle data
 $("#searchInput").on("keyup", function () {
   var value = $(this).val().toLowerCase();
   $("#car-table tr").filter(function () {

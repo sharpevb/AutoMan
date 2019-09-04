@@ -106,9 +106,11 @@
               </div>
             </div>
         </div>
+        <hr>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
+          <hr>
         </div>
         </form>
       </div>
@@ -118,7 +120,7 @@
 
 <!-- Add new car or edit and existing Modal -->
 <div class="modal" id="carModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Please enter vehicle information below</h5>
@@ -153,8 +155,6 @@
                 <label>Mileage</label>
                 <input type="number" class="form-control" id="car-mileage" required min="0" max="444444">
               </div>
-
-              <br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="modalCloseCar" data-dismiss="modal">Cancel</button>
@@ -180,33 +180,29 @@
             <div class="row">
               <div class="col">
                 <label>Full Name</label>
-                <input type="text" class="form-control" id="customer-name" required placeholder="John Doe">
+                <input type="text" class="form-control" id="customer-name" required placeholder="Jane Doe">
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <label>Address</label>
+                <input type="text" class="form-control" id="input-email" required placeholder="123 Sesame Street, Columbus, OH">
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col">
                 <label>Email</label>
-                <input type="email" class="form-control" id="input-email" required placeholder="john.doe@email.com">
+                <input type="email" class="form-control" id="input-email" required placeholder="janedoe@yahoo.com">
               </div>
 
               <div class="col">
                 <label>Number</label>
-                <input type="number" class="form-control" id="input-phone" required placeholder="555-555-5555">
+                <input type="number" class="form-control" id="input-phone" required placeholder="712-555-1212">
               </div>
             </div>
-            <br>
-            <div class="row">
-              <div class="col">
-                <label>Price</label>
-                <input type="number" class="form-control" id="input-price" required placeholder="$9,999">
-              </div>
-
-              <div class="col">
-                <label>Date</label>
-                <input type="date" class="form-control" id="customer-date" required placeholder="mm/dd/yyyy">
-              </div>
-            </div>
+            
           </div>
       </div>
       <div class="modal-footer">
