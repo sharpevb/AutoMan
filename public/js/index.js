@@ -12,6 +12,11 @@ var $carDate = $("#car-date");
 //var $carList = $("#car-list");
 var customerSelect = $("#car-customer");
 
+var $customerName = $("#customer-name");
+var $customerEmail = $("#input-email");
+var $customerPhone = $("#input-phone");
+var $customerAddress = $("#input-address");
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveCar: function (car) {
@@ -42,6 +47,16 @@ var API = {
       type: "PUT",
       data: car
     });
+  },
+  newCustomer: function (customer) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/customers",
+      data: JSON.stringify(customer)
+    });
   }
 };
 getCustomers();
@@ -61,7 +76,7 @@ $('#soldModal').on('submit', function (event) {
     CustomerId: customerId
   };
   console.log("car " + JSON.stringify(car))
-alert("updating sold")
+  alert("updating sold")
   /*    if (!(car.price && car.datesold)) {
         return;
       }*/
@@ -207,6 +222,7 @@ $("#modalCloseCar").on("click", function () {
   $("#carModal").hide();
 });
 
+// This is the same search function listed already //
 $("#searchInput").on("keyup", function () {
   var value = $(this).val().toLowerCase();
   $("#car-table tr").filter(function () {
@@ -214,9 +230,9 @@ $("#searchInput").on("keyup", function () {
   });
 });
 
-// displays modal for adding customer
+// Displays modal for adding customer
 $("#addCustomer").on("click", function () {
-  $("#submit-customer").attr("carID", ""); // <-- carID
+  $("#submit-customer").attr("customerId", ""); // <-- carID
   //reset
   $("#customer-name").val("");
   $("#input-email").val("");
@@ -225,11 +241,40 @@ $("#addCustomer").on("click", function () {
   $("#customer-date").val("");
   $("#customerModal").show();
 });
-
+// Closes modal on Cancel button click
 $("#modalCloseCustomer").on("click", function () {
   $("#customerModal").hide();
 });
 
+// 
+$("#customerModal").on("submit", function (event) {
+  var customerId = $("#submit-customer").attr("customerId");
+  var output = "";
+  if (customerId === null) { output = "null" }
+  else if (customerId === undefined) { output = "undefined" }
+  else if (customerId === "") { output = "empty" };
+  console.log("save output " + output)
+  console.log("save carID " + customerID)
+  var customer = {
+    CustomerId: customerId,
+    name: $customerName.val().trim(),
+    address: $customerAddress.val().trim(),
+    email: $customerEmail.val().trim(),
+    phone: $customerPhone.val().trim()
+  };
+  console.log("customer " + JSON.stringify(customer))
+  if (!(car.year && car.make && car.model && car.color && car.mileage)) {
+    return;
+  }
+  if (customerID === "") {
+    API.newCustomer(customer).then(function () {
+    });
+  } else {
+    console.log("did not work")
+  }
+});
+
+// Search bar to scroll through vehicle data
 $("#searchInput").on("keyup", function () {
   var value = $(this).val().toLowerCase();
   $("#car-table tr").filter(function () {
@@ -247,7 +292,7 @@ function getCustomers() {
 // Function to either render a list of authors, or if there are none, direct the user to the page
 // to create an author first
 function renderCustomerList(data) {
-  console.log("customers "+JSON.stringify(data))
+  console.log("customers " + JSON.stringify(data))
   if (!data.length) {
     window.location.href = "/customers";
   }

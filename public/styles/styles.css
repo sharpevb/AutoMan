@@ -1,4 +1,13 @@
-/* Jumbotron */
+  /* Body */
+  body {
+    font-family: "Lato", sans-serif;
+  }
+  .card-header {
+    font-family: "Staatliches", cursive;
+    font-size: 20pt;
+  }
+  
+  /* Jumbotron */
 .jumbotron {
   background-color: rgb(17, 17, 85);
   color: white;
@@ -27,16 +36,7 @@
     color: white;
   }
   
-  /* Body */
-  body {
-    font-family: "Lato", sans-serif;
-  }
-  .card-header {
-    font-family: "Staatliches", cursive;
-    font-size: 20pt;
-  }
-  
-  /* Database Search Card */
+/* Database Search Card */
   #searchBody {
     display: inline-flex;
   }
@@ -50,6 +50,11 @@
     color: white;
   }
   
+  /* Modal Styling */
+  #carModal, #soldModal, #customerModal {
+    background-color: rgba(0, 0, 0, 0.7); 
+  }
+
   /* Table */
   td {
     font-family:"Lato", sans-serif;
@@ -66,3 +71,5 @@
     background-color: #FFE324;
     border-color: #FFE324;
   }
+
+
