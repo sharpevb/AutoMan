@@ -23,7 +23,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     carimage: DataTypes.STRING,
     datesold: DataTypes.DATEONLY,
-    price: DataTypes.INTEGER
+    price: DataTypes.INTEGER,
+    sold: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   });
 
   Car.associate = function(models) {

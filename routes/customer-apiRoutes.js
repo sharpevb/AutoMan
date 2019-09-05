@@ -4,7 +4,7 @@ module.exports = function (app) {
   // Get all customers
   app.get("/api/customers", function (req, res) {
     db.Customer.findAll({
-      include: [db.Car]
+      order: ["name"]
     }).then(function (dbCustomers) {
       res.json(dbCustomers);
     });

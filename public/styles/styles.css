@@ -72,4 +72,7 @@
     border-color: #FFE324;
   }
 
-
+  .custom-radio {
+    font-size: 1.5em;
+    padding-right: 2em;
+  }
