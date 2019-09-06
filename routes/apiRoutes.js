@@ -20,7 +20,7 @@ module.exports = function (app) {
 
   app.get("/sold", function (req, res) {
     db.Car.findAll(
-      {
+{
         include: [db.Customer],
         order: [["datesold", "DESC"]],
         where: {
