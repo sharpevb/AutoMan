@@ -208,13 +208,53 @@ $(document).ready(function () {
   $("#car-table").on('click', '.deleteButton', function (event) {
     event.preventDefault();
 
-    //get the database key for the row
-    var carID = $(this).attr("data-id");
-    var response = confirm("Are you sure you want to delete this vehicle? " + carID);
-    if (response === true) {
-      handleDeleteBtnClick(carID);
+    // Confirm modal to pop up
+    $("#confirmModal").show();
+
+    var deleteCar = ($("#submit-delete").on('click', function (){
+      handleDeleteBtnClick(); 
+    }))
+
+    if (deleteCar === true) {
+    $(this).closest('tr').remove();
+    console.log("hello world");
+    refreshCars();          
     }
+     else {  
+      $("#modalCloseConfirm").on("click", function () {
+      $("#confirmModal").hide();
+    });}
+
   });
+  //Delete from database
+
+
+  //get the database key for the row
+  // $("#submit-delete").on("click", function () {  
+  //handleDeleteBtnClick(); 
+  // });
+
+
+  //   //Clicking on the delete button in table
+  //   $("#car-table").on('click', '.deleteButton', function (event) {
+  //     event.preventDefault();
+
+  //     // Confirm modal to pop up
+  //     $("#confirmModal").show();
+
+
+  //     $("#submit-delete").on("click", function () {
+  //       handleDeleteBtnClick(carID);
+  //   });
+  // });
+
+
+
+  // Closes modal on Cancel button click
+  // $("#modalCloseConfirm").on("click", function () {
+  //   $("#confirmModal").hide();
+  // });
+
 
   //display modal for selling vehicle.
   $(".soldButton").on("click", function (event) {

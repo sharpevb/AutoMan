@@ -28,7 +28,7 @@
     </div>
     <br>
 
-    <!-- current inventory -->
+    <!-- Current inventory -->
     <div class="custom-control custom-radio custom-control-inline">
       <input type="radio" class="custom-control-input" id="currentInventory" value="I" name="radio1" checked>
       <label class="custom-control-label" for="currentInventory">Current Inventory</label>
@@ -48,36 +48,36 @@
             <table id="car-table" class="table table-hover display sortable">
               <thead>
                 <tr>
-                  <th>Year</th>
-                  <th>Make</th>
-                  <th>Model</th>
-                  <th>Color</th>
-                  <th>Mileage (mi)</th>
-                  <th>Picture</th>
-                  <th>Sold</th>
-                  <th>Delete</th>
-                  <th>Edit</th>
+                  <th scope="col">Year</th>
+                  <th scope="col">Make</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Color</th>
+                  <th scope="col">Mileage (mi)</th>
+                  <th scope="col">Picture</th>
+                  <th scope="col">Sold</th>
+                  <th scope="col">Delete</th>
+                  <th scope="col">Edit</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each cars}}
                 <tr id="row" +{{this.id}} data-id="{{this.id}}">
-                  <td id="year{{this.id}}">{{this.year}}</td>
-                  <td id="make{{this.id}}">{{this.make}}</td>
-                  <td id="model{{this.id}}">{{this.model}}</td>
-                  <td id="color{{this.id}}">{{this.color}}</td>
-                  <td class="comma" id="mileage{{this.id}}">{{this.mileage}}</td>
-                  <td id="image{{this.id}}"><img src="{{this.carimage}}" width="50px" height="50px" /></td>
+                  <td scope="col" id="year{{this.id}}">{{this.year}}</td>
+                  <td scope="col" id="make{{this.id}}">{{this.make}}</td>
+                  <td scope="col" id="model{{this.id}}">{{this.model}}</td>
+                  <td scope="col" id="color{{this.id}}">{{this.color}}</td>
+                  <td scope="col" class="comma" id="mileage{{this.id}}">{{this.mileage}}</td>
+                  <td scope="col" id="image{{this.id}}"><img src="{{this.carimage}}" width="50px" height="50px" /></td>
                   <!--need these next three fields to retrieve the data, but will be hidden-->
-                  <td class="d-none" id="price{{this.id}}">{{this.price}}</td>
-                  <td class="d-none" id="datesold{{this.id}}">{{this.datesold}}</td>
-                  <td class="d-none" id="customer{{this.id}}">{{this.CustomerId}}</td>
-                  <td><span class="icon is-sm"><button class="btn btn-sm btn-success soldButton"
+                  <td scope="col" class="d-none" id="price{{this.id}}">{{this.price}}</td>
+                  <td scope="col" class="d-none" id="datesold{{this.id}}">{{this.datesold}}</td>
+                  <td scope="col" class="d-none" id="customer{{this.id}}">{{this.CustomerId}}</td>
+                  <td scope="col"><span class="icon is-sm"><button class="btn btn-sm btn-success soldButton"
                         data-id="{{this.id}}"><i class="fas fa-dollar-sign"></i></button></span></td>
-                  <td><span class="icon is-sm"><button class="btn btn-sm btn-danger deleteButton"
-                        data-id="{{this.id}}"><i class="fa fa-trash" aria-hidden="true"></i></button></span></td>
+                  <td scope="col"><span class="icon is-sm"><button class="btn btn-sm btn-danger deleteButton"
+                        data-id="{{this.id}}"><i class="fa fa-trash"></i></button></span></td>
                   <td scope=" col"><span class="icon is-sm"><button class="btn btn-sm btn-warning editButton"
-                        data-id="{{this.id}}"><i class="fa fa-edit" aria-hidden="true"></i></button></span></td>
+                        data-id="{{this.id}}"><i class="fa fa-edit"></i></button></span></td>
                 </tr>
                 {{/each}}
               </tbody>
@@ -88,6 +88,8 @@
     </div>
   </div>
 </div>
+
+<!-- MODALS -->
 <!-- Sold Button Modal -->
 <div class="modal" id="soldModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
@@ -227,27 +229,23 @@
   </div>
 </div>
 
+<!-- Confirm Delete Modal -->
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete entry</h5>
+      </div>
+      <div class="modal-body">
+        <p><h5>Are you sure you want to delete?</h5></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseConfirm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
-{{!-- <div id="placeholder"></div> --}}
-{{!-- <script type="text/handlebars-template" id="handlebars-template">
-  <table>
-    <thead>
-      <tr>
-        <th>1.</th>
-        <th>2.</th>
-        <th>3.</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each cars}}
-      <tr>
-        <td>{{col1}}</td>
-        <td>{{col2}}</td>
-        <td>{{col3}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</script> --}}
-

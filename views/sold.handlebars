@@ -28,14 +28,14 @@
     </div>
     <br>
 
-    <!-- current inventory -->
+    <!-- Current inventory -->
     <div class="custom-control custom-radio custom-control-inline">
       <input type="radio" class="custom-control-input" id="currentInventory" value="I" name="radio1">
       <label class="custom-control-label" for="currentInventory">Current Inventory</label>
     </div>
     <!-- Sold  -->
     <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" class="custom-control-input" id="soldInventory" Value = "S" name="radio1" checked>
+      <input type="radio" class="custom-control-input" id="soldInventory" Value="S" name="radio1" checked>
       <label class="custom-control-label" for="soldInventory">Sold Vehicles</label>
     </div>
 
@@ -45,7 +45,7 @@
         <div class="card mb-4">
           <div class="card-header">Vehicle Database</div>
           <div class="card-body">
-            <table id="sold-table" class="table display table-sm table-hover sortable" >
+            <table id="car-table" class="table display table-sm table-hover sortable">
               <thead>
                 <tr>
                   <th scope="col">Year</th>
@@ -92,47 +92,48 @@
     </div>
   </div>
 </div>
-  <!-- Sold Button Modal -->
-  <div class="modal" id="soldModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Please enter buyer information below</h5>
-        </div>
-        <div class="modal-body">
-          <form>
+
+<!-- MODALS -->
+<!-- Sold Button Modal -->
+<div class="modal" id="soldModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please enter buyer information below</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <!-- Dropdown button -->
             <div class="form-group">
-              <!-- Dropdown button -->
-              <div class="form-group">
-                <label for="category">Select Customer:</label>
-                <select class="custom-select" id="car-customer">
-                </select>
+              <label for="category">Select Customer:</label>
+              <select class="custom-select" id="car-customer">
+              </select>
+            </div>
+            <hr>
+            <br>
+            <div class="row">
+              <div class="col">
+                <label>Price</label>
+                <input type="number" class="form-control" id="car-price" required min="10" max="444444">
               </div>
-              <hr>
 
-              <br>
-              <div class="row">
-                <div class="col">
-                  <label>Price</label>
-                  <input type="number" class="form-control" id="car-price" required min="10"
-                    max="444444">
-                </div>
-
-                <div class="col">
-                  <label>Date</label>
-                  <input type="date" class="form-control" id="car-date" required>
-                </div>
+              <div class="col">
+                <label>Date</label>
+                <input type="date" class="form-control" id="car-date" required>
               </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
-        </div>
-        </form>
+          </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
+        <hr>
+      </div>
+      </form>
     </div>
   </div>
+</div>
 </div>
 
 
@@ -203,7 +204,7 @@
             <br>
             <div class="row">
               <div class="col">
-                <label>Address</label>
+                <label>Address (Street, City, State)</label>
                 <input type="text" class="form-control" id="input-address" required>
               </div>
             </div>
@@ -216,7 +217,8 @@
 
               <div class="col">
                 <label for="phone">Phone Number (123-456-7890)</label>
-                <input type="tel" class="form-control" name="phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                <input type="tel" class="form-control" name="phone" id="input-phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
               </div>
             </div>
 
@@ -227,6 +229,24 @@
         <button type="submit" class="btn btn-primary" id="submit-customer">Submit</button>
       </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete entry</h5>
+      </div>
+      <div class="modal-body">
+        <p><h5>Are you sure you want to delete?</h5></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseConfirm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+      </div>
     </div>
   </div>
 </div>
