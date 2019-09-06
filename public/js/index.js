@@ -131,13 +131,6 @@ $(document).ready(function () {
   });
 });
 
-// New technology - DataTables
-$(document).ready(function () {
-  $('#car-table').find(">:first-child").DataTable();
-  console.log("data")
-}
-);
-
 $(document).ready(function () {
   initialize();
   //if the car is sold, prompt for who is was sold to, price and date.
