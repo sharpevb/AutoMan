@@ -60,7 +60,7 @@ function refreshCars() {
   //location.reload();
   console.log("inventoryselect " + inventorySelect)
   if (inventorySelect === 'I') {
-  //load up inventory only
+    //load up inventory only
     document.location = '/';
   }
   else {
@@ -116,6 +116,21 @@ function initialize() {
     $('#currentInventory').prop('checked', false);
   }
 };
+
+  // Formatting mileage with commas
+  function numberWithCommas(number) {
+    var parts = number.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+}
+$(document).ready(function() {
+  $(".comma").each(function() {
+    var num = $(this).text();
+    var commaNum = numberWithCommas(num);
+    $(this).text(commaNum);
+  });
+});
+
 
 $(document).ready(function () {
   initialize();
