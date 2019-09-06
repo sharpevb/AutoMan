@@ -59,7 +59,7 @@ function refreshCars() {
   //location.reload();
   console.log("inventoryselect " + inventorySelect)
   if (inventorySelect === 'I') {
-  //load up inventory only
+    //load up inventory only
     document.location = '/';
   }
   else {
@@ -115,6 +115,20 @@ function initialize() {
     $('#currentInventory').prop('checked', false);
   }
 };
+
+// Formatting mileage with commas
+function numberWithCommas(number) {
+  var parts = number.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+$(document).ready(function () {
+  $(".comma").each(function () {
+    var num = $(this).text();
+    var commaNum = numberWithCommas(num);
+    $(this).text(commaNum);
+  });
+});
 
 $(document).ready(function () {
   initialize();
@@ -193,6 +207,25 @@ $(document).ready(function () {
   $("body").off().on('click', '.deleteButton', function (event) {
     event.preventDefault();
 
+
+    // Confirm modal to pop up
+    $("#confirmModal").show();
+
+    var deleteCar = ($("#submit-delete").on('click', function (){
+      handleDeleteBtnClick(); 
+    }))
+
+    if (deleteCar === true) {
+    $(this).closest('tr').remove();
+    console.log("hello world");
+    refreshCars();          
+    }
+     else {  
+      $("#modalCloseConfirm").on("click", function () {
+      $("#confirmModal").hide();
+    });}
+
+
     //get the database key for the row
     var carID = $(this).attr("data-id");
    // var response = confirm("Are you sure you want to delete this vehicle? " + carID);
@@ -200,6 +233,35 @@ $(document).ready(function () {
       handleDeleteBtnClick(carID);
   //  }
   });
+  //Delete from database
+
+
+  //get the database key for the row
+  // $("#submit-delete").on("click", function () {  
+  //handleDeleteBtnClick(); 
+  // });
+
+
+  //   //Clicking on the delete button in table
+  //   $("#car-table").on('click', '.deleteButton', function (event) {
+  //     event.preventDefault();
+
+  //     // Confirm modal to pop up
+  //     $("#confirmModal").show();
+
+
+  //     $("#submit-delete").on("click", function () {
+  //       handleDeleteBtnClick(carID);
+  //   });
+  // });
+
+
+
+  // Closes modal on Cancel button click
+  // $("#modalCloseConfirm").on("click", function () {
+  //   $("#confirmModal").hide();
+  // });
+
 
   //display modal for selling vehicle.
   $(".soldButton").off().on("click", function (event) {

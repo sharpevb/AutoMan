@@ -28,14 +28,14 @@
     </div>
     <br>
 
-    <!-- current inventory -->
+    <!-- Current inventory -->
     <div class="custom-control custom-radio custom-control-inline">
       <input type="radio" class="custom-control-input" id="currentInventory" value="I" name="radio1">
       <label class="custom-control-label" for="currentInventory">Current Inventory</label>
     </div>
     <!-- Sold  -->
     <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" class="custom-control-input" id="soldInventory" Value = "S" name="radio1" checked>
+      <input type="radio" class="custom-control-input" id="soldInventory" Value="S" name="radio1" checked>
       <label class="custom-control-label" for="soldInventory">Sold Vehicles</label>
     </div>
 
@@ -45,14 +45,14 @@
         <div class="card mb-4">
           <div class="card-header">Vehicle Database</div>
           <div class="card-body">
-            <table class="table table-sm table-hover" id='car-table'>
+            <table id="car-table" class="table display table-sm table-hover sortable">
               <thead>
                 <tr>
                   <th scope="col">Year</th>
                   <th scope="col">Make</th>
                   <th scope="col">Model</th>
                   <th scope="col">Color</th>
-                  <th scope="col">Mileage</th>
+                  <th scope="col">Mileage (mi)</th>
                   <th scope="col">Date Sold</th>
                   <th scope="col">Price</th>
                   <th scope="col">Customer</th>
@@ -69,9 +69,9 @@
                   <td scope="col" id="make{{this.id}}">{{this.make}}</td>
                   <td scope="col" id="model{{this.id}}">{{this.model}}</td>
                   <td scope="col" id="color{{this.id}}">{{this.color}}</td>
-                  <td scope="col" id="mileage{{this.id}}">{{this.mileage}}</td>
+                  <td scope="col" class="comma" id="mileage{{this.id}}">{{this.mileage}}</td>
                   <td scope="col" id="datesold{{this.id}}">{{this.datesold}}</td>
-                  <td scope="col" id="price{{this.id}}">{{this.price}}</td>
+                  <td scope="col" class="comma" id="price{{this.id}}">${{this.price}}</td>
                   <td scope="col" id="price{{this.id}}">{{this.Customer.name}}</td>
                   <td scope="col" class='d-none' id="customer{{this.id}}">{{this.CustomerId}}</td>
                   <!--td scope="col" id="image{{this.id}}"><img src="{{this.carimage}}" width="50px" height="50px" /></td!-->
@@ -92,47 +92,48 @@
     </div>
   </div>
 </div>
-  <!-- Sold Button Modal -->
-  <div class="modal" id="soldModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Please enter buyer information below</h5>
-        </div>
-        <div class="modal-body">
-          <form>
+
+<!-- MODALS -->
+<!-- Sold Button Modal -->
+<div class="modal" id="soldModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please enter buyer information below</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <!-- Dropdown button -->
             <div class="form-group">
-              <!-- Dropdown button -->
-              <div class="form-group">
-                <label for="category">Select Customer:</label>
-                <select class="custom-select" id="car-customer">
-                </select>
+              <label for="category">Select Customer:</label>
+              <select class="custom-select" id="car-customer">
+              </select>
+            </div>
+            <hr>
+            <br>
+            <div class="row">
+              <div class="col">
+                <label>Price</label>
+                <input type="number" class="form-control" id="car-price" required min="10" max="444444">
               </div>
-              <hr>
 
-              <br>
-              <div class="row">
-                <div class="col">
-                  <label>Price</label>
-                  <input type="number" class="form-control" id="car-price" placeholder="$9,999" required min="10"
-                    max="444444">
-                </div>
-
-                <div class="col">
-                  <label>Date</label>
-                  <input type="date" class="form-control" id="car-date" required placeholder="mm/dd/yyyy">
-                </div>
+              <div class="col">
+                <label>Date</label>
+                <input type="date" class="form-control" id="car-date" required>
               </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
-        </div>
-        </form>
+          </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
+        <hr>
+      </div>
+      </form>
     </div>
   </div>
+</div>
 </div>
 
 
@@ -149,30 +150,28 @@
             <div class="row">
               <div class="col">
                 <label>Year</label>
-                <input type="number" class="form-control" id="car-year" required min="1933" max="2025"
-                  placeholder="1985">
+                <input type="number" class="form-control" id="car-year" required min="1933" max="2025">
               </div>
               <div class="col">
                 <label>Make</label>
-                <input type="text" class="form-control" id="car-make" required placeholder="DMC">
+                <input type="text" class="form-control" id="car-make" required>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col">
                 <label>Model</label>
-                <input type="text" class="form-control" id="car-model" required placeholder="DeLorean">
+                <input type="text" class="form-control" id="car-model" required>
               </div>
 
               <div class="col">
                 <label>Color</label>
-                <input type="text" class="form-control" id="car-color" required placeholder="Silver">
+                <input type="text" class="form-control" id="car-color" required>
               </div>
 
               <div class="col">
                 <label>Mileage</label>
-                <input type="number" class="form-control" id="car-mileage" required min="0" max="444444"
-                  placeholder="400,000">
+                <input type="number" class="form-control" id="car-mileage" required min="0" max="444444">
               </div>
             </div>
             <div class="modal-footer">
@@ -199,27 +198,27 @@
             <div class="row">
               <div class="col">
                 <label>Full Name</label>
-                <input type="text" class="form-control" id="customer-name" required placeholder="Jane Doe">
+                <input type="text" class="form-control" id="customer-name" required>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col">
-                <label>Address</label>
-                <input type="text" class="form-control" id="input-address" required
-                  placeholder="123 Sesame Street, Columbus, OH">
+                <label>Address (Street, City, State)</label>
+                <input type="text" class="form-control" id="input-address" required>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col">
                 <label>Email</label>
-                <input type="email" class="form-control" id="input-email" required placeholder="janedoe@yahoo.com">
+                <input type="email" class="form-control" id="input-email" required>
               </div>
 
               <div class="col">
-                <label>Phone Number</label>
-                <input type="number" class="form-control" id="input-phone" required placeholder="712-555-1212">
+                <label for="phone">Phone Number (123-456-7890)</label>
+                <input type="tel" class="form-control" name="phone" id="input-phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
               </div>
             </div>
 
@@ -230,6 +229,24 @@
         <button type="submit" class="btn btn-primary" id="submit-customer">Submit</button>
       </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete entry</h5>
+      </div>
+      <div class="modal-body">
+        <p><h5>Are you sure you want to delete?</h5></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseConfirm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+      </div>
     </div>
   </div>
 </div>
