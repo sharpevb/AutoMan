@@ -45,7 +45,7 @@
         <div class="card mb-4">
           <div class="card-header">Vehicle Database</div>
           <div class="card-body">
-            <table id="sold-table" class="table display table-sm table-hover" >
+            <table id="sold-table" class="table display table-sm table-hover sortable" >
               <thead>
                 <tr>
                   <th scope="col">Year</th>
@@ -215,8 +215,8 @@
               </div>
 
               <div class="col">
-                <label>Phone Number</label>
-                <input type="number" class="form-control" id="input-phone" required>
+                <label for="phone">Phone Number (123-456-7890)</label>
+                <input type="tel" class="form-control" name="phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
               </div>
             </div>
 
