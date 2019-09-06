@@ -1,4 +1,3 @@
-//$(document).ready(function () {
 
 // Get references to page elements
 var $carYear = $("#car-year");
@@ -191,19 +190,19 @@ $(document).ready(function () {
   // Add event listeners to the submit, edit, and delete buttons
 
   //delete the selected row.
-  $("#car-table").on('click', '.deleteButton', function (event) {
+  $("body").off().on('click', '.deleteButton', function (event) {
     event.preventDefault();
 
     //get the database key for the row
     var carID = $(this).attr("data-id");
-    var response = confirm("Are you sure you want to delete this vehicle? " + carID);
-    if (response === true) {
+   // var response = confirm("Are you sure you want to delete this vehicle? " + carID);
+   // if (response === true) {
       handleDeleteBtnClick(carID);
-    }
+  //  }
   });
 
   //display modal for selling vehicle.
-  $(".soldButton").on("click", function (event) {
+  $(".soldButton").off().on("click", function (event) {
     event.preventDefault();
     var carID = $(this).attr("data-id");
     $("#submitSold").attr("carID", carID);
@@ -223,7 +222,7 @@ $(document).ready(function () {
   });
 
   //display modal for adding car
-  $("#addCar").on("click", function () {
+  $("#addCar").off().on("click", function () {
     $("#submit-car").attr("carID", "");
     //reset
     $("#car-year").val("");
@@ -235,10 +234,9 @@ $(document).ready(function () {
   });
 
   //display modal for editing car
-  $(".editButton").on("click", function () {
+  $(".editButton").off().on("click", function () {
     //set the carID attribute to the ID
     var carID = $(this).attr("data-id");
-
     $("#submit-car").attr("carID", carID);
     //set to their current values
     $("#car-year").val($(`#year${carID}`).text());
