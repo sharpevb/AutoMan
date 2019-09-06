@@ -117,20 +117,26 @@ function initialize() {
   }
 };
 
-  // Formatting mileage with commas
-  function numberWithCommas(number) {
-    var parts = number.toString().split(".");
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return parts.join(".");
+// Formatting mileage with commas
+function numberWithCommas(number) {
+  var parts = number.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
 }
-$(document).ready(function() {
-  $(".comma").each(function() {
+$(document).ready(function () {
+  $(".comma").each(function () {
     var num = $(this).text();
     var commaNum = numberWithCommas(num);
     $(this).text(commaNum);
   });
 });
 
+// New technology - DataTables
+$(document).ready(function () {
+  $('#car-table').find(">:first-child").DataTable();
+  console.log("data")
+}
+);
 
 $(document).ready(function () {
   initialize();
