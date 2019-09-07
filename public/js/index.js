@@ -12,10 +12,9 @@ var customerSelect = $("#car-customer");
 //this is whether to display those in inventory, or those sold, or all
 var inventorySelect = $("input[name='radio1']:checked").val();
 
-var $customerName = $("#customer-name");
-var $customerEmail = $("#input-email");
-var $customerPhone = $("#input-phone");
-var $customerAddress = $("#input-address");
+//this will be used for setting to the sold customer.
+var selectedCustomer = 0;
+
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -42,34 +41,27 @@ var API = {
       type: "PUT",
       data: car
     });
-  },
-  newCustomer: function (customer) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/customers",
-      data: JSON.stringify(customer)
-    });
   }
 };
 
 function refreshCars() {
-  //location.reload();
+  //location.reload(); daw
   console.log("inventoryselect " + inventorySelect)
   if (inventorySelect === 'I') {
     //load up inventory only
     document.location = '/';
   }
-  else {
+  else if (inventorySelect === 'S') {
     //this is just the sold vehicles
     document.location = '/sold';
   }
-}
+  else {
+    document.location = '/customers';
+  }
+};
 
 // Remove the car from the db and refresh the list
-function handleDeleteBtnClick(carID) {
+function deleteCar(carID) {
   // console.log("id " + carID);
   API.deleteCar(carID).then(function () {
     refreshCars();
@@ -94,6 +86,7 @@ function renderCustomerList(data) {
   }
   customerSelect.empty();
   customerSelect.append(rowsToAdd);
+  customerSelect.val(selectedCustomer);
 }
 
 // Creates the author options in the dropdown
@@ -109,13 +102,19 @@ function initialize() {
   if (inventorySelect === "I") {
     $('#soldInventory').prop('checked', false);
     $('#currentInventory').prop('checked', true);
+    $('#customer').prop('checked', false);
   }
-  else {
+  else if (inventorySelect === "S") {
     $('#soldInventory').prop('checked', true);
     $('#currentInventory').prop('checked', false);
+    $('#customer').prop('checked', false);
+  }
+  else {
+    $('#soldInventory').prop('checked', false);
+    $('#currentInventory').prop('checked', false);
+    $('#customer').prop('checked', true);
   }
 };
-
 // Formatting mileage with commas
 function numberWithCommas(number) {
   var parts = number.toString().split(".");
@@ -157,9 +156,8 @@ $(document).ready(function () {
     $("#car-date").val("");
     //will always be an update when sold.
     API.updateCar(car).then(function () {
+      refreshCars();
     });
-    $("#soldModal").hide();
-    refreshCars();
   });
 
   //record the sale
@@ -191,76 +189,43 @@ $(document).ready(function () {
     //if a new record, then add, otherwise update
     if (carID === "") {
       API.saveCar(car).then(function () {
+        refreshCars();
       });
     } else {
       //   console.log("updating")
       API.updateCar(car).then(function () {
+        refreshCars();
       });
     }
-    $("#carModal").hide();
-    refreshCars();
+
   });
 
   // Add event listeners to the submit, edit, and delete buttons
 
-  //delete the selected row.
+  //make sure they want to delete the selected car.
   $("body").off().on('click', '.deleteButton', function (event) {
     event.preventDefault();
 
-
-    // Confirm modal to pop up
-    $("#confirmModal").show();
-
-    var deleteCar = ($("#submit-delete").on('click', function (){
-      handleDeleteBtnClick(); 
-    }))
-
-    if (deleteCar === true) {
-    $(this).closest('tr').remove();
-    console.log("hello world");
-    refreshCars();          
-    }
-     else {  
-      $("#modalCloseConfirm").on("click", function () {
-      $("#confirmModal").hide();
-    });}
-
-
     //get the database key for the row
     var carID = $(this).attr("data-id");
-   // var response = confirm("Are you sure you want to delete this vehicle? " + carID);
-   // if (response === true) {
-      handleDeleteBtnClick(carID);
-  //  }
+    $("#submit-delete").attr("carID", carID);
+    // Confirm modal to pop up
+    $("#confirmModal").show();
   });
-  //Delete from database
+
+  //if they confirm they want to delete the car
+  $('#confirmModal').off().on('submit', function (event) {
+    event.preventDefault();
+    //get the id to delete
+    var carID = $("#submit-delete").attr("carID");
+    deleteCar(carID);
+  });
 
 
-  //get the database key for the row
-  // $("#submit-delete").on("click", function () {  
-  //handleDeleteBtnClick(); 
-  // });
-
-
-  //   //Clicking on the delete button in table
-  //   $("#car-table").on('click', '.deleteButton', function (event) {
-  //     event.preventDefault();
-
-  //     // Confirm modal to pop up
-  //     $("#confirmModal").show();
-
-
-  //     $("#submit-delete").on("click", function () {
-  //       handleDeleteBtnClick(carID);
-  //   });
-  // });
-
-
-
-  // Closes modal on Cancel button click
-  // $("#modalCloseConfirm").on("click", function () {
-  //   $("#confirmModal").hide();
-  // });
+  //Closes modal on Cancel button click
+  $("#modalCloseConfirm").on("click", function () {
+    $("#confirmModal").hide();
+  });
 
 
   //display modal for selling vehicle.
@@ -269,12 +234,14 @@ $(document).ready(function () {
     var carID = $(this).attr("data-id");
     $("#submitSold").attr("carID", carID);
     //set to their current values in case updating
-    $("#car-price").val($(`#price${carID}`).text());
+    //need to take out the commas and $ to put in numeric field
+    var price = $(`#price${carID}`).text().replace(/,/g, "").substr(1, 10).trim();
+    $("#car-price").val(price);
     $("#car-date").val($(`#datesold${carID}`).text());
 
     //populate the customer list
+    selectedCustomer = $(`#customer${carID}`).text();
     getCustomers();
-    customerSelect.val($(`#customer${carID}`).text());
 
     $("#soldModal").show();
   });
@@ -305,7 +272,7 @@ $(document).ready(function () {
     $("#car-make").val($(`#make${carID}`).text());
     $("#car-model").val($(`#model${carID}`).text());
     $("#car-color").val($(`#color${carID}`).text());
-    $("#car-mileage").val($(`#mileage${carID}`).text());
+    $("#car-mileage").val($(`#mileage${carID}`).text().replace(/,/g, ""));
 
     $("#carModal").show();
   });
@@ -324,63 +291,8 @@ $(document).ready(function () {
 
   //this will get the value of the inventory selection radio and display
   $("input[name='radio1']").on("click", function (event) {
-    // alert("calling get cars "+$(this).val())
-    //app.get(`/cars/`+$(this).val())
-    //API.getCars($(this).val());
     event.preventDefault();
     inventorySelect = $(this).val();
     refreshCars();
   });
-
-  // Displays modal for adding customer
-  $("#addCustomer").on("click", function () {
-    $("#submit-customer").attr("customerId", "");
-    //set values
-    $("#customer-name").val("");
-    $("#input-email").val("");
-    $("#input-phone").val("");
-    $("#input-price").val("");
-    $("#customerModal").show();
-  });
-
-  // Closes modal on Cancel button click
-  $("#modalCloseCustomer").on("click", function () {
-    $("#customerModal").hide();
-  });
-
-  // 
-  $("#customerModal").on("submit", function (event) {
-    event.preventDefault();
-    //key is stored in the customerId field
-    var customerId = $("#submit-customer").attr("customerId");
-    //create the object for database insert/update
-    var customer = {
-      CustomerId: customerId,
-      name: $customerName.val().trim(),
-      address: $customerAddress.val().trim(),
-      email: $customerEmail.val().trim(),
-      phone: $customerPhone.val().trim()
-    };
-    console.log("customer " + JSON.stringify(customer))
-
-    //don't allow it to save if null
-    if (!(customer.name && customer.address && customer.email && customer.phone)) {
-      return;
-    }
-    //reset
-    $("#customer-name").val("");
-    $("#input-email").val("");
-    $("#input-phone").val("");
-    $("#input-price").val("");
-    //if ID is null, then it's an add, otherwise update
-    if (customerId === "") {
-      API.newCustomer(customer).then(function () {
-      });
-    } else {
-      API.updateCustomer(customer).then(function () {
-      });
-    }
-    $("#customerModal").hide();
-  });
-
 });

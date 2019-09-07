@@ -7,21 +7,9 @@
       <h5 class="text-center" id="jumboSubtitle"><em>Automobile Management System</em></h5>
     </div>
 
-    <!-- Button Row -->
-    <div class="row" id="buttonRow">
-      <div class="col-md-3">
-      </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-lg" id="addCar">Add Vehicle</button>
-      </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-lg" id="addCustomer">Add Customer</button>
-      </div>
-    </div>
-
     <!-- Filter Search -->
     <div class="card">
-      <div class="card-header">Database Search - Sold Vehicles</div>
+      <div class="card-header">Sold Vehicles</div>
       <div class="card-body" id="searchBody">
         <i class="fas fa-search"></i><input class="form-control" id="searchInput" type="text" placeholder="Search...">
       </div>
@@ -37,6 +25,11 @@
     <div class="custom-control custom-radio custom-control-inline">
       <input type="radio" class="custom-control-input" id="soldInventory" Value="S" name="radio1" checked>
       <label class="custom-control-label" for="soldInventory">Sold Vehicles</label>
+    </div>
+    <!-- Customer  daw-->
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" class="custom-control-input" id="customer" Value="C" name="radio1">
+      <label class="custom-control-label" for="customer">Customers</label>
     </div>
 
     <!-- Table -->
@@ -124,18 +117,16 @@
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
+            <hr>
+          </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="modalCloseCust" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submitSold">Submit</button>
-        <hr>
-      </div>
-      </form>
     </div>
   </div>
 </div>
-</div>
-
 
 <!-- Add new car or edit and existing Modal -->
 <div class="modal" id="carModal" tabindex="-1" role="dialog">
@@ -178,57 +169,9 @@
               <button type="button" class="btn btn-secondary" id="modalCloseCar" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary" id="submit-car">Submit</button>
             </div>
+          </div>
         </form>
       </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- Add Customer Modal -->
-<div class="modal" id="customerModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add a New Customer</h5>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <div class="row">
-              <div class="col">
-                <label>Full Name</label>
-                <input type="text" class="form-control" id="customer-name" required>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col">
-                <label>Address (Street, City, State)</label>
-                <input type="text" class="form-control" id="input-address" required>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col">
-                <label>Email</label>
-                <input type="email" class="form-control" id="input-email" required>
-              </div>
-
-              <div class="col">
-                <label for="phone">Phone Number (123-456-7890)</label>
-                <input type="tel" class="form-control" name="phone" id="input-phone"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-              </div>
-            </div>
-
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseCustomer">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submit-customer">Submit</button>
-      </div>
-      </form>
     </div>
   </div>
 </div>
@@ -241,11 +184,15 @@
         <h5 class="modal-title">Delete entry</h5>
       </div>
       <div class="modal-body">
-        <p><h5>Are you sure you want to delete?</h5></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseConfirm">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+        <form>
+          <p>
+            <h5>Are you sure you want to delete?</h5>
+          </p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalCloseConfirm">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -78,7 +78,7 @@
   td {
     font-family:"Lato", sans-serif;
   }
-  .deleteButton{
+  .deleteButton, .deleteCustomer{
     padding: 5px 10px 5px 10px;
     background-color: #9C0C19;
     border-color: #9C0C19;
@@ -95,12 +95,12 @@
     border-color:rgb(2, 190, 21);
   }
 
-  .editButton {
+  .editButton, .editCustomer {
     background-color: #EB9B09;
     border-color: #EB9B09;
   }
 
-  .editButton:hover { 
+  .editButton:hover, .editCustomer:hover { 
     background-color: #FFC900;
     border-color: #FFC900;
   }
@@ -109,4 +109,7 @@
     font-size: 1.5em;
     padding-right: 2em;
     padding-bottom: 5px;
+  }
+  .addbutton {
+    padding-left:10em;
   }
