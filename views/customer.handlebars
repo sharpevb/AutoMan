@@ -1,0 +1,158 @@
+<div id="home">
+    <div class="container">
+
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="text-center display-1" id="jumboTitle">AutoMan</h1>
+            <h5 class="text-center" id="jumboSubtitle"><em>Automobile Management System</em></h5>
+        </div>
+
+         <!-- Filter Search -->
+        <div class="card">
+            <div class="card-header">Customers</div>
+            <div class="card-body" id="searchBody">
+                <i class="fas fa-search"></i><input class="form-control" id="searchInput" type="text"
+                    placeholder="Search...">
+            </div>
+        </div>
+        <br>
+
+        <!-- Current inventory -->
+        <div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="currentInventory" value="I" name="radio1">
+                <label class="custom-control-label" for="currentInventory">Current Inventory</label>
+            </div>
+            <!-- Sold  -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="soldInventory" Value="S" name="radio1">
+                <label class="custom-control-label" for="soldInventory">Sold Vehicles</label>
+            </div>
+            <!-- Customer  daw-->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" id="customer" Value="C" name="radio1" checked>
+                <label class="custom-control-label" for="customer">Customers</label>
+            </div>
+
+            <div class="custom-control-inline addbutton">
+                <button type="button" class="btn btn-lg" id="addCustomer">Add Customer</button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">Customer Database</div>
+                    <div class="card-body">
+                        <table id="customer-table" class="table display table-sm table-hover sortable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th class="d-none" scope="col">Vehicles Purchased</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each customers}}
+                                <tr id="row" +{{this.id}} data-id="{{this.id}}">
+                                    <td scope="col" id="customer{{this.id}}">{{this.name}}</td>
+                                    <td scope="col" id="address{{this.id}}">{{this.address}}</td>
+                                    <td scope="col" id="phone{{this.id}}">{{this.phone}}</td>
+                                    <td scope="col" id="email{{this.id}}">{{this.email}}</td>
+                                    <!--td scope="col" class="d-none" id="customer{{this.id}}">{{this.CustomerId}}</td-->
+                                    <td scope="col"><span class="icon is-sm"><button
+                                                class="btn btn-sm btn-danger deleteCustomer" data-id="{{this.id}}"><i
+                                                    class="fa fa-trash" aria-hidden="true"></i></button></span></td>
+                                    <td scope=" col"><span class="icon is-sm"><button
+                                                class="btn btn-sm btn-warning editCustomer" data-id="{{this.id}}"><i
+                                                    class="fa fa-edit" aria-hidden="true"></i></button></span></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Add Customer Modal -->
+<div class="modal" id="customerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a New Customer</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" id="customer-name" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label>Address (Street, City, State)</label>
+                                <input type="text" class="form-control" id="input-address" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="input-email" required>
+                            </div>
+
+                            <div class="col">
+                                <label for="phone">Phone Number (804-456-7890)</label>
+                                <input type="tel" class="form-control" name="phone" id="input-phone"
+                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="modalCloseCustomer">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submit-customer">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirm Delete Modal -->
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete entry</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p>
+                        <h5>Are you sure you want to delete?</h5>
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="modalCloseConfirm">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submit-delete">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/customer.js"></script>

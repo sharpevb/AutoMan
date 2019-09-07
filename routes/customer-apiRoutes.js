@@ -1,12 +1,23 @@
 var db = require("../models");
 
 module.exports = function (app) {
-  // Get all customers
+  // Get all customers for dropdown
   app.get("/api/customers", function (req, res) {
     db.Customer.findAll({
       order: ["name"]
     }).then(function (dbCustomers) {
       res.json(dbCustomers);
+    });
+  });
+
+  //this will get them 
+  app.get("/customers", function (req, res) {
+    db.Customer.findAll({
+      order: ["name"]
+    }).then(function (dbCustomers) {
+      res.render("customer", {
+        customers: dbCustomers
+      });
     });
   });
 
