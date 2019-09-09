@@ -10,7 +10,7 @@ module.exports = function (app) {
     });
   });
 
-  //this will get them 
+  //this will get them and load customer page
   app.get("/customers", function (req, res) {
     db.Customer.findAll({
       order: ["name"]

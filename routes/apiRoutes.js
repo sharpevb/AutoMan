@@ -18,9 +18,10 @@ module.exports = function (app) {
       });
   });
 
+  //update a car as sold
   app.get("/sold", function (req, res) {
     db.Car.findAll(
-{
+      {
         include: [db.Customer],
         order: [["datesold", "DESC"]],
         where: {

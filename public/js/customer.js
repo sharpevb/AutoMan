@@ -38,7 +38,6 @@ function deleteCustomer(customerID) {
   });
 };
 
-
 $(document).ready(function () {
   initialize();
 
@@ -86,7 +85,7 @@ $(document).ready(function () {
     $("#customerModal").show();
   });
 
-  // This is the same search function listed already //
+  // This is the search functionality
   $("#searchInput").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#customer-table tr").filter(function () {
@@ -98,7 +97,7 @@ $(document).ready(function () {
   // Displays modal for adding customer
   $("#addCustomer").on("click", function () {
     $("#submit-customer").attr("customerId", "");
-    //set values
+    //initialize values
     $("#customer-name").val("");
     $("#input-email").val("");
     $("#input-phone").val("");
@@ -124,13 +123,12 @@ $(document).ready(function () {
       email: $customerEmail.val().trim(),
       phone: $customerPhone.val().trim()
     };
-    console.log("customer " + JSON.stringify(customer))
 
     //don't allow it to save if null
     if (!(customer.name && customer.address && customer.email && customer.phone)) {
       return;
     }
-    //reset
+    //reset values
     $("#customer-name").val("");
     $("#input-email").val("");
     $("#input-phone").val("");
@@ -144,7 +142,7 @@ $(document).ready(function () {
       API.updateCustomer(customer).then(function () {
         refreshCars();
       });
-    }
+    };
   });
 
 });
