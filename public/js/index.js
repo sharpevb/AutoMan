@@ -15,7 +15,6 @@ var inventorySelect = $("input[name='radio1']:checked").val();
 //this will be used for setting to the sold customer.
 var selectedCustomer = 0;
 
-
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveCar: function (car) {
@@ -71,7 +70,7 @@ function deleteCar(carID) {
 // This section will populate the list of customers
 function getCustomers() {
   $.get("/api/customers", renderCustomerList);
-}
+};
 // Function to either render a list of authors, or if there are none, direct the user to the page
 // to create an author first
 function renderCustomerList(data) {
@@ -98,7 +97,7 @@ function createCustomerRow(customer) {
 }
 
 function initialize() {
-  // $("[name=myRadio]").val(["I"]);
+//inventory select I is current inventory, S is sold stuff, C is Customer
   if (inventorySelect === "I") {
     $('#soldInventory').prop('checked', false);
     $('#currentInventory').prop('checked', true);
@@ -115,22 +114,17 @@ function initialize() {
     $('#customer').prop('checked', true);
   }
 };
+
 // Formatting mileage with commas
 function numberWithCommas(number) {
   var parts = number.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");
 }
-$(document).ready(function () {
-  $(".comma").each(function () {
-    var num = $(this).text();
-    var commaNum = numberWithCommas(num);
-    $(this).text(commaNum);
-  });
-});
 
 $(document).ready(function () {
   initialize();
+
   //if the car is sold, prompt for who is was sold to, price and date.
   $('#soldModal').on('submit', function (event) {
     event.preventDefault();
@@ -146,8 +140,6 @@ $(document).ready(function () {
       CustomerId: customerId,
       sold: true
     };
-
-    console.log("car " + JSON.stringify(car))
 
     if (!(car.price && car.datesold)) {
       return;
@@ -174,7 +166,7 @@ $(document).ready(function () {
       color: $carColor.val().trim(),
       mileage: $carMileage.val().trim()
     };
-    console.log("car " + JSON.stringify(car))
+    
     //don't submit if anything is missing.
     if (!(car.year && car.make && car.model && car.color && car.mileage)) {
       return;
@@ -192,12 +184,17 @@ $(document).ready(function () {
         refreshCars();
       });
     } else {
-      //   console.log("updating")
       API.updateCar(car).then(function () {
         refreshCars();
       });
     }
+  });
 
+  //format the fields that need commas
+  $(".comma").each(function () {
+    var num = $(this).text();
+    var commaNum = numberWithCommas(num);
+    $(this).text(commaNum);
   });
 
   // Add event listeners to the submit, edit, and delete buttons
@@ -221,12 +218,10 @@ $(document).ready(function () {
     deleteCar(carID);
   });
 
-
   //Closes modal on Cancel button click
   $("#modalCloseConfirm").on("click", function () {
     $("#confirmModal").hide();
   });
-
 
   //display modal for selling vehicle.
   $(".soldButton").off().on("click", function (event) {
@@ -272,6 +267,7 @@ $(document).ready(function () {
     $("#car-make").val($(`#make${carID}`).text());
     $("#car-model").val($(`#model${carID}`).text());
     $("#car-color").val($(`#color${carID}`).text());
+    //need to take out the comma for storing in the database.
     $("#car-mileage").val($(`#mileage${carID}`).text().replace(/,/g, ""));
 
     $("#carModal").show();
@@ -281,11 +277,11 @@ $(document).ready(function () {
     $("#carModal").hide();
   });
 
-  // This is the same search function listed already //
+  // search for the car table.
   $("#searchInput").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#car-table tr").filter(function () {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
 
