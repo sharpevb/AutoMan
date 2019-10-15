@@ -53,4 +53,4 @@ It validates input to make sure information is accurately recorded.
 * Aggregate reporting.
 
 # Thanks for visiting, and please check out our app!
-Deployed at - https://automan-sequelized.herokuapp.com/
+Deployed at - https://automan-vbs.herokuapp.com/
